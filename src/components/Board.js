@@ -10,6 +10,15 @@ export default class Board extends Component {
       }
     }
 
+
+    handleClick(i) {
+        // 기존의 배열을 바꾸지 않고 새로운 배열을 생성하여 상태를 업데이트
+        const squares = this.state.squares.slice()
+        squares[i] = 'X'
+        this.setState({
+            squares: squares
+        })
+    }
   
     
 
