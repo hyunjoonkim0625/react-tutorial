@@ -6,7 +6,8 @@ export default class Board extends Component {
       super(props)
     
       this.state = {
-         squares: Array(9).fill(null)
+         squares: Array(9).fill(null),
+         xIsNext: true
       }
     }
 
@@ -14,9 +15,10 @@ export default class Board extends Component {
     handleClick(i) {
         // 기존의 배열을 바꾸지 않고 새로운 배열을 생성하여 상태를 업데이트
         const squares = this.state.squares.slice()
-        squares[i] = 'X'
+        squares[i] = this.state.xIsNext ? 'X' : 'O'
         this.setState({
-            squares: squares
+            squares: squares,
+            xIsNext: !this.state.xIsNext
         })
     }
   
@@ -29,7 +31,7 @@ export default class Board extends Component {
       }
     
       render() {
-        const status = "Next player: X"
+        const status = "Next player: " + (this.state.xIsNext ? 'X' : 'O')
     
         return (
           <div>
