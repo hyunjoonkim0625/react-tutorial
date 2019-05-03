@@ -1,18 +1,64 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+
+
+class Board extends React.Component {
+  renderSquare(i) {
+    return <Square value={i} />
+  }
+
+  render() {
+    const status = "Next player: X"
+
+    return (
+      <div>
+        <div className="status">{status}</div>
+        
+        <div className="board-row">
+          {this.renderSquare(0)}
+          {this.renderSquare(1)}
+          {this.renderSquare(2)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(3)}
+          {this.renderSquare(4)}
+          {this.renderSquare(5)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(6)}
+          {this.renderSquare(7)}
+          {this.renderSquare(8)}
+        </div>
+        </div>
+   
+    )
+  }
+}
+
+class Square extends React.Component {
+  render() {
+    return (
+      <button className="square">
+        {this.props.value}
+      </button>
+    )
+  }
+}
+
 
 class App extends Component {
+  // Game
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <div className="game"> 
+          <div className="game-board">
+            <Board />
+          </div>
+          <div className="game-info">
+           
+          </div>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
       </div>
     );
   }
