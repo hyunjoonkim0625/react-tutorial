@@ -9,12 +9,14 @@ export default class Game extends Component {
           history: [{
             squares: Array(9).fill(null)
           }],
+          stepNumber: 0,
           xIsNext: true
         };
       }
 
       handleClick(i) {
-        const history = this.state.history;
+        const history = this.state.history.slice(0, this.state.stepNumber + 1)
+        
         const current = history[history.length - 1];
         // 기존 배열 수정없이 새로운 배열의 생성
         const squares = current.squares.slice();
@@ -26,14 +28,23 @@ export default class Game extends Component {
           history: history.concat([{
             squares: squares
           }]),
+          stepNumber: history.length,
           xIsNext: !this.state.xIsNext,
         });
+      }
+
+      // 특정 턴으로 가기위한 메소드
+      jumpTo(step) {
+          this.setState({
+              stepNumber: step,
+              xIsNext: (step % 2) === 0
+          })
       }
       
     render() {
   
     const history = this.state.history
-    const current = history[history.length - 1]
+    const current = history[this.state.stepNumber]
     const winner = calculateWinner(current.squares)
 
     // 게임 히스토리의 표시
@@ -41,7 +52,7 @@ export default class Game extends Component {
         const desc = move ? "Go to move #" + move : "Go to game start";
 
         return (
-            <li>
+            <li key={move}>
                 <button onClick={() => this.jumpTo(move)}>
                     {desc}
                 </button>
