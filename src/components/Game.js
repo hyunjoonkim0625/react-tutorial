@@ -16,6 +16,7 @@ export default class Game extends Component {
       handleClick(i) {
         const history = this.state.history;
         const current = history[history.length - 1];
+        // 기존 배열 수정없이 새로운 배열의 생성
         const squares = current.squares.slice();
         if (calculateWinner(squares) || squares[i]) {
           return;
@@ -34,6 +35,19 @@ export default class Game extends Component {
     const history = this.state.history
     const current = history[history.length - 1]
     const winner = calculateWinner(current.squares)
+
+    // 게임 히스토리의 표시
+    const moves = history.map((step, move) => {
+        const desc = move ? "Go to move #" + move : "Go to game start";
+
+        return (
+            <li>
+                <button onClick={() => this.jumpTo(move)}>
+                    {desc}
+                </button>
+            </li>
+        )
+    })
    
     let status;
 
@@ -58,7 +72,7 @@ export default class Game extends Component {
                     {status}
                 </div>
                 <ol>
-                    {/* TODO */}
+                    {moves}
                 </ol>
             </div>
       </div>
